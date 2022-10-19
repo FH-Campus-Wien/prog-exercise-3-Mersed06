@@ -94,64 +94,60 @@ public class App {
     }
 
 
-    /*public static String camelCase(String string) {
-        int count = 0;
-        char [] charArray = string.toCharArray();                           //Satz in Buchstaben teilen und speichern
-
-        ArrayList<String> arrayListChars = new ArrayList<>(charArray.length);
-
-        for (int i = 0; i < charArray.length; i++) {
-            arrayListChars.add(String.valueOf(charArray[i]));
-        }
-
-        for (int i = 0; i < charArray.length; i++) {
-            count++;
-            if (arrayListChars.contains(" ")) {
-                arrayListChars.remove(" ");
-
-            } else if (arrayListChars.contains(".")) {
-                arrayListChars.remove(".");
-            } else if (arrayListChars.contains(",")) {
-                arrayListChars.remove(",");
-            } else if (arrayListChars.contains(";")) {
-                arrayListChars.remove(";");
-            } else if (arrayListChars.contains("?")) {
-                arrayListChars.remove("?");
-            } else if (arrayListChars.contains("!")) {
-                arrayListChars.remove("!");
-            } else if (arrayListChars.contains("'")) {
-                arrayListChars.remove("'");
-            }
-                arrayListChars.
-
-        }
+    public static String camelCase(String string) {
+        char[] charArray = string.toCharArray();
+        ArrayList<String> arrayList = new ArrayList<>(charArray.length);
+        String result;
 
 
-    }
+        charArray[0] = Character.toUpperCase(charArray[0]);
 
-     */
 
-    /*public static String camelCase(final String init) {
-        if (init == null) {
-            return null;
-        }
-        StringBuilder ret = new StringBuilder(init.length());
-
-        for (final String word : init.split(" "))
+        for (int i = 1; i < charArray.length; i++)
         {
-            if (!word.isEmpty()) {
-                ret.append(Character.toUpperCase(word.charAt(0)));
-                ret.append(word.substring(1).toLowerCase());
-                ret
+            if (Character.isLowerCase(charArray[i]) && Character.isWhitespace(charArray[i-1]))
+            {
+                charArray[i] = Character.toUpperCase(charArray[i]);
+            } else if (Character.isUpperCase(charArray[i]) && !Character.isWhitespace(charArray[i-1]))
+            {
+                charArray[i] = Character.toLowerCase(charArray[i]);
             }
-            if (!(ret.length() == init.length()))
-                ret.append(" ");
         }
 
-        return ret.toString();
+        for (int i = 0; i < charArray.length; i++) {
+            arrayList.add(String.valueOf(charArray[i]));
+        }
+
+        for (int i = 0; i < charArray.length; i++)
+        {
+            if (arrayList.contains(" "))
+            {
+                arrayList.remove(" ");
+            }
+            else if (arrayList.contains(".")) {
+                arrayList.remove(".");
+            } else if (arrayList.contains(",")) {
+                arrayList.remove(",");
+            } else if (arrayList.contains(";")) {
+                arrayList.remove(";");
+            } else if (arrayList.contains("?")) {
+                arrayList.remove("?");
+            } else if (arrayList.contains("!")) {
+                arrayList.remove("!");
+            } else if (arrayList.contains("'")) {
+                arrayList.remove("'");
+            }
+        }
+        result = arrayList.get(0);
+
+        for (int i = 1; i < arrayList.size(); i++)
+        {
+                result = result + arrayList.get(i);
+        }
+        return result;
     }
 
-     */
+
 
 
     public static boolean swapArrays(int[] first, int[] second) {
@@ -178,18 +174,13 @@ public class App {
     }
 
 
-
-
-
-
-
     public static int checkDigit(int [] code) {
         int weighting = 1;
         int product = 0;
         int digit = 0;
 
         for (int i = 0; i < code.length; i++) {
-            weighting = weighting +1;                           //Gewichtung: Arrayy Position + 0
+            weighting = weighting +1;                           //Gewichtung: Array Position + 0
             product = product + code[i] * weighting;            //Produkt = weighting * Code, Summe vom Ganzen
 
             //Prüfziffer als int zurückliefern
